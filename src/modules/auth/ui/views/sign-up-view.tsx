@@ -1,9 +1,10 @@
 "use client";
-import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
+import {z} from "zod";
 
+import {Alert, AlertTitle} from "@/components/ui/alert";
+import {Button} from "@/components/ui/button";
 import {Card, CardContent} from "@/components/ui/card";
-import {useForm} from "react-hook-form";
 import {
   Form,
   FormControl,
@@ -13,13 +14,12 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import {Input} from "@/components/ui/input";
-import {Alert, AlertTitle} from "@/components/ui/alert";
-import {OctagonAlertIcon} from "lucide-react";
-import {Button} from "@/components/ui/button";
-import Link from "next/link";
-import {useRouter} from "next/navigation";
-import {useState} from "react";
 import {authClient} from "@/lib/auth-client";
+import {OctagonAlertIcon} from "lucide-react";
+import {useState} from "react";
+import {useForm} from "react-hook-form";
+import {SocialButtons} from "./shared/SocialButtons";
+import {useRouter} from "next/navigation";
 
 const formSchema = z
   .object({
@@ -54,7 +54,9 @@ export const SignUpView = () => {
         email,
         password,
         name,
+        callbackURL: "/",
       },
+
       {
         onSuccess: () => {
           router.replace("/");
@@ -170,33 +172,7 @@ export const SignUpView = () => {
                     Or continue with
                   </span>
                 </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <Button
-                    disabled={pending}
-                    variant="outline"
-                    type="button"
-                    className="w-full"
-                  >
-                    Google
-                  </Button>
-                  <Button
-                    disabled={pending}
-                    variant="outline"
-                    type="button"
-                    className="w-full"
-                  >
-                    GitHub
-                  </Button>
-                </div>
-                <div className="text-center text-sm">
-                  Already have an account?{" "}
-                  <Link
-                    href="/sign-in"
-                    className="underline underline-offset-4"
-                  >
-                    Sign In
-                  </Link>
-                </div>
+                <SocialButtons pending={pending} setError={setError} />
               </div>
             </form>
           </Form>
