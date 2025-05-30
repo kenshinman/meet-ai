@@ -20,6 +20,7 @@ import Link from "next/link";
 import {useRouter} from "next/navigation";
 import {useState} from "react";
 import {authClient} from "@/lib/auth-client";
+import {SocialButtons} from "./shared/SocialButtons";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -46,6 +47,7 @@ export const SignInView = () => {
       {
         email,
         password,
+        callbackURL: "/",
       },
       {
         onSuccess: () => {
@@ -124,24 +126,7 @@ export const SignInView = () => {
                     Or continue with
                   </span>
                 </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <Button
-                    disabled={pending}
-                    variant="outline"
-                    type="button"
-                    className="w-full"
-                  >
-                    Google
-                  </Button>
-                  <Button
-                    disabled={pending}
-                    variant="outline"
-                    type="button"
-                    className="w-full"
-                  >
-                    GitHub
-                  </Button>
-                </div>
+                <SocialButtons pending={pending} setError={setError} />
                 <div className="text-center text-sm">
                   Don&apos;t have an account?{" "}
                   <Link
