@@ -70,7 +70,7 @@ const DashboardUserButton = () => {
               <CreditCardIcon className="size-4 text-black" /> Billing
             </Button>
             <Button variant="outline" onClick={onLogout}>
-              <LogOutIcon className="size-4 text-black" /> Billing
+              <LogOutIcon className="size-4 text-black" /> Logout
             </Button>
           </DrawerFooter>
         </DrawerContent>
