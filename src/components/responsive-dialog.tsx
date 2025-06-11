@@ -14,6 +14,7 @@ import {
   DialogDescription,
   DialogHeader,
   DialogContent,
+  DialogTitle,
 } from "./ui/dialog";
 
 interface IProps {
@@ -49,7 +50,7 @@ export const ResponsiveDialog = ({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DrawerTitle>{title}</DrawerTitle>
+          <DialogTitle>{title}</DialogTitle>
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
         {children}
