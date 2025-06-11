@@ -1,5 +1,5 @@
 import {
-  CommandDialog,
+  CommandDialogResponsive,
   CommandInput,
   CommandItem,
   CommandList,
@@ -13,11 +13,11 @@ interface IProps {
 
 export const DashboardCommand = ({open, setOpen}: IProps) => {
   return (
-    <CommandDialog open={open} onOpenChange={setOpen}>
+    <CommandDialogResponsive open={open} onOpenChange={setOpen}>
       <CommandInput placeholder="Find a meeting or agent" />
       <CommandList>
         <CommandItem>Test</CommandItem>
       </CommandList>
-    </CommandDialog>
+    </CommandDialogResponsive>
   );
 };

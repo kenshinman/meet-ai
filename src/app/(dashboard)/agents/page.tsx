@@ -14,11 +14,11 @@ const Agents = async () => {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <Suspense fallback={<AgentsViewLoading />}>
-        <ErrorBoundary fallback={<AgentsViewError />}>
+      <ErrorBoundary fallback={<AgentsViewError />}>
+        <Suspense fallback={<AgentsViewLoading />}>
           <AgentsView />
-        </ErrorBoundary>
-      </Suspense>
+        </Suspense>
+      </ErrorBoundary>
     </HydrationBoundary>
   );
 };
