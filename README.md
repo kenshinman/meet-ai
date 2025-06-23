@@ -1,36 +1,39 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Meet-AI
 
-## Getting Started
+This app lets you create AI agents and hold meetings/ conversations with them, save these conversations and transcribe them
 
-First, run the development server:
+Built with NextJs 15 and react 19.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Packages summary
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Package                                                | Usage                                                                          |
+| ------------------------------------------------------ | ------------------------------------------------------------------------------ |
+| @dicebear/collection, @dicebear/core                   | Avatar generation for agents/users                                             |
+| @hookform/resolvers, react-hook-form                   | Form validation and management                                                 |
+| @neondatabase/serverless                               | Serverless Postgres database integration                                       |
+| @radix-ui/\*                                           | UI primitives for building accessible components (dialogs, menus, forms, etc.) |
+| @tanstack/react-query                                  | Data fetching, caching, and synchronization                                    |
+| @tanstack/react-table                                  | Table rendering for displaying data                                            |
+| @trpc/client, @trpc/server, @trpc/tanstack-react-query | Type-safe API communication between client and server                          |
+| better-auth                                            | Authentication utilities                                                       |
+| class-variance-authority, clsx                         | Conditional class name management                                              |
+| client-only, server-only                               | Enforce client/server-only code execution                                      |
+| cmdk                                                   | Command menu UI component                                                      |
+| date-fns                                               | Date manipulation and formatting                                               |
+| dotenv                                                 | Environment variable management                                                |
+| drizzle-orm                                            | Type-safe ORM for database access                                              |
+| embla-carousel-react                                   | Carousel UI component for sliding content                                      |
+| input-otp                                              | OTP input fields for authentication flows                                      |
+| lucide-react, react-icons                              | Icon libraries for UI elements                                                 |
+| nanoid                                                 | Unique ID generation                                                           |
+| next, react, react-dom                                 | Core framework and libraries for building the app                              |
+| next-themes                                            | Theme switching (light/dark mode)                                              |
+| nuqs                                                   | Query string utilities for Next.js                                             |
+| react-day-picker                                       | Date picker UI component                                                       |
+| react-error-boundary                                   | Error boundary handling in React components                                    |
+| react-resizable-panels                                 | Resizable panel layouts                                                        |
+| recharts                                               | Charting and data visualization                                                |
+| sonner                                                 | Toast notifications                                                            |
+| tailwind-merge                                         | Utility for merging Tailwind CSS classes                                       |
+| vaul                                                   | Drawer and modal UI components                                                 |
+| zod                                                    | Schema validation for data and forms                                           |
