@@ -11,11 +11,21 @@ import ListHeader from "@/modules/agents/ui/components/list-header";
 import {auth} from "@/lib/auth";
 import {headers} from "next/headers";
 import {redirect} from "next/navigation";
+import {SearchParams} from "nuqs";
+import {loadSearchParams} from "@/modules/agents/params";
 
-const Agents = async () => {
+interface IProps {
+  searchParams: Promise<SearchParams>;
+}
+
+const Agents = async ({searchParams}: IProps) => {
+  const filters = await loadSearchParams(searchParams);
   const queryClient = getQueryClient();
-  void queryClient.prefetchQuery(trpc.agents.getMany.queryOptions());
-  // TODO: create a wrapper for protected routes
+  void queryClient.prefetchQuery(
+    trpc.agents.getMany.queryOptions({
+      ...filters,
+    })
+  );
   const session = await auth.api.getSession({
     headers: await headers(),
   });

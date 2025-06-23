@@ -33,7 +33,7 @@ export const AgentForm = ({onSuccess, onCancel, initialValues}: IAgentForm) => {
     trpc.agents.create.mutationOptions({
       onSuccess: () => {
         // this invalidates cached data so that a fresh list of agents is fetched
-        queryClient.invalidateQueries(trpc.agents.getMany.queryOptions());
+        queryClient.invalidateQueries(trpc.agents.getMany.queryOptions({}));
         // this invalidates the just updated agent so it's re-fetched
         if (initialValues) {
           queryClient.invalidateQueries(
