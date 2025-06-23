@@ -2,7 +2,7 @@
 
 This app lets you create AI agents and hold meetings/ conversations with them, save these conversations and transcribe them
 
-Built with NextJs 15 and react 19.
+Built with NextJs 15 and react 19, TRPC, Postgres, Neon ORM, Tailwind CSS + Shadcn, Better Auth, Polar .
 
 ## Packages summary
 
