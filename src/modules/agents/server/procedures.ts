@@ -39,7 +39,7 @@ export const agentsRouter = createTRPCRouter({
         .where(
           and(
             eq(agents.userId, ctx.auth.user.id),
-            search ? ilike(agents.name, `%${input?.search}`) : undefined
+            search ? ilike(agents.name, `%${search}`) : undefined
           )
         )
         .orderBy(desc(agents.createdAt), desc(agents.id))
@@ -50,7 +50,7 @@ export const agentsRouter = createTRPCRouter({
         .where(
           and(
             eq(agents.userId, ctx.auth.user.id),
-            search ? ilike(agents.name, `%${input?.search}`) : undefined
+            search ? ilike(agents.name, `%${search}`) : undefined
           )
         )
 
