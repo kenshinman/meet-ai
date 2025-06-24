@@ -29,17 +29,31 @@ export const AgentForm = ({onSuccess, onCancel, initialValues}: IAgentForm) => {
   const trpc = useTRPC();
   const queryClient = useQueryClient();
 
+  const updateAgent = useMutation(
+    trpc.agents.update.mutationOptions({
+      onSuccess: () => {
+        queryClient.invalidateQueries(trpc.agents.getMany.queryOptions({}));
+        if (initialValues) {
+          queryClient.invalidateQueries(
+            // refetches the agent
+            trpc.agents.getOne.queryOptions({id: initialValues.id})
+          );
+        }
+        toast.success("Agent created successfully!");
+        onSuccess?.();
+      },
+      onError: (error) => {
+        toast.error(error.message);
+
+        // TODO: Check if error code is forbidden so user is redirected to "/upgrade"
+      },
+    })
+  );
   const createAgent = useMutation(
     trpc.agents.create.mutationOptions({
       onSuccess: () => {
         // this invalidates cached data so that a fresh list of agents is fetched
         queryClient.invalidateQueries(trpc.agents.getMany.queryOptions({}));
-        // this invalidates the just updated agent so it's re-fetched
-        if (initialValues) {
-          queryClient.invalidateQueries(
-            trpc.agents.getOne.queryOptions({id: initialValues.id})
-          );
-        }
         toast.success("Agent created successfully!");
         onSuccess?.();
       },
@@ -60,11 +74,11 @@ export const AgentForm = ({onSuccess, onCancel, initialValues}: IAgentForm) => {
   });
 
   const isEdit = !!initialValues?.id;
-  const isPending = createAgent.isPending;
+  const isPending = createAgent.isPending || updateAgent.isPending;
 
   const onSubmit = form.handleSubmit((values) => {
     if (isEdit) {
-      console.log("TODO: editing");
+      updateAgent.mutate({...values, id: initialValues.id});
     } else {
       createAgent.mutate(values);
     }
