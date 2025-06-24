@@ -40,7 +40,7 @@ export const AgentIdView = ({agentId}: IProps) => {
           trpc.agents.getMany.queryOptions({})
         );
         // TODO: Invalidate free tier usage
-        toast.error("Agent removed successfully!");
+        toast.success("Agent removed successfully!");
         router.replace("/agents");
       },
       onError: (error) => {
