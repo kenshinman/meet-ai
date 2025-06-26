@@ -43,7 +43,7 @@ export const MeetingForm = ({onSuccess, onCancel, initialValues}: IProps) => {
             trpc.meetings.getOne.queryOptions({id: initialValues.id})
           );
         }
-        toast.success("Agent created successfully!");
+        toast.success("Meeting created successfully!");
         onSuccess?.(data.id);
       },
       onError: (error) => {
@@ -120,7 +120,7 @@ export const MeetingForm = ({onSuccess, onCancel, initialValues}: IProps) => {
             name="agentId"
             render={({field}) => (
               <FormItem>
-                <FormLabel>Name</FormLabel>
+                <FormLabel>Agent</FormLabel>
                 <FormControl>
                   <CommandSelect
                     options={(agents.data?.items || []).map(({id, name}) => ({
@@ -140,7 +140,7 @@ export const MeetingForm = ({onSuccess, onCancel, initialValues}: IProps) => {
                     onSelect={field.onChange}
                     onSearch={setSearch}
                     value={field.value}
-                    placeholder="Select and agent"
+                    placeholder="Select an agent"
                   />
                 </FormControl>
                 <FormDescription>

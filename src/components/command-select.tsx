@@ -43,7 +43,7 @@ export const CommandSelect = ({
         onClick={() => setIsOpen(true)}
         className={cn(
           "h-9 justify-between font-normal px-2",
-          selectedOption && "text-muted-foreground",
+          !selectedOption && "text-muted-foreground",
           className
         )}
       >

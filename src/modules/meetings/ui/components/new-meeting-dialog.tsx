@@ -13,7 +13,7 @@ export const NewMeetingDialog = ({open, onOpenChange}: INewMeetingDialog) => {
   return (
     <ResponsiveDialog
       title="New Meeting"
-      description="Create a new agent"
+      description="Create a new meeting"
       open={open}
       onOpenChange={onOpenChange}
     >
