@@ -8,7 +8,7 @@ import {useAgentsFilters} from "../../hooks/use-agents-filters";
 import {AgentsSearchFilter} from "./agents-search-filter";
 import {DEFAULT_PAGE} from "@/lib/constants";
 
-const ListHeader = () => {
+export const ListHeader = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [filters, setFilters] = useAgentsFilters();
 
@@ -42,5 +42,3 @@ const ListHeader = () => {
     </>
   );
 };
-
-export default ListHeader;
