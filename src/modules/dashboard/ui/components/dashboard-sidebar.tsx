@@ -11,6 +11,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  useSidebar,
 } from "@/components/ui/sidebar";
 import {cn} from "@/lib/utils";
 import {BotIcon, StarIcon, VideoIcon} from "lucide-react";
@@ -42,6 +43,7 @@ const secondSection = [
 
 export const DashboardSidebar = () => {
   const pathname = usePathname();
+  const {setOpenMobile} = useSidebar();
   return (
     <Sidebar>
       <SidebarHeader className="text-sidebar-accent-foreground">
@@ -67,7 +69,7 @@ export const DashboardSidebar = () => {
                         "bg-linear-to-r/oklch border-[#5d6b68]/10"
                     )}
                   >
-                    <Link href={item.href}>
+                    <Link href={item.href} onClick={() => setOpenMobile(false)}>
                       <item.icon className="size-5" />
                       <span className="text-sm font-medium tracking-tight">
                         {item.label}
