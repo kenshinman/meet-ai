@@ -74,7 +74,8 @@ export const columns: ColumnDef<TMeeting>[] = [
     accessorKey: "status",
     header: "Status",
     cell: ({row}) => {
-      const Icon = statusIconMap[row.original.status];
+      const status = row.original.status as keyof typeof statusIconMap;
+      const Icon = statusIconMap[status] || ClockArrowUpIcon;
 
       return (
         <Badge
@@ -85,9 +86,8 @@ export const columns: ColumnDef<TMeeting>[] = [
           )}
         >
           <Icon
-            className={cn(
-              row.original.status === "processing" && "animate-spin"
-            )}
+            aria-label={`Status: ${status}`}
+            className={cn(status === "processing" && "animate-spin")}
           />
           {row.original.status}
         </Badge>
