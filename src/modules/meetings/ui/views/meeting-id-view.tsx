@@ -35,7 +35,7 @@ export const MeetingIdView = ({meetingId}: IProps) => {
     "Deleting this meeting will mean losing all transcripts"
   );
 
-  const {mutate: removeAgent} = useMutation(
+  const {mutate: removeMeeting} = useMutation(
     trpc.meetings.remove.mutationOptions({
       onSuccess: async () => {
         await queryClient.invalidateQueries(
@@ -52,7 +52,7 @@ export const MeetingIdView = ({meetingId}: IProps) => {
 
   const handleRemoveMeeting = async () => {
     const ok = await confirm();
-    if (ok) removeAgent({id: meetingId});
+    if (ok) removeMeeting({id: meetingId});
   };
 
   return (
