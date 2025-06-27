@@ -77,7 +77,7 @@ export const agentsRouter = createTRPCRouter({
 
     }))
     .query(async ({ ctx, input }) => {
-      const { search, pageSize, page } = input;
+      const { search, pageSize, page, } = input;
       const data = await db
         .select({
           meetingCount: sql<number>`5`, // TODO: add meetingCount column to db
@@ -87,7 +87,8 @@ export const agentsRouter = createTRPCRouter({
         .where(
           and(
             eq(agents.userId, ctx.auth.user.id),
-            search ? ilike(agents.name, `%${search}`) : undefined
+            search ? ilike(agents.name, `%${search}`) : undefined,
+
           )
         )
         .orderBy(desc(agents.createdAt), desc(agents.id))
