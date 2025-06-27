@@ -9,6 +9,8 @@ import {columns} from "../components/columns";
 import {EmptyState} from "@/components/empty-state";
 import {useMeetingsFilters} from "../../hooks/use-meetings-filters";
 import {DataPagination} from "@/components/data-pagination";
+import {MeetingGetOne} from "../../types";
+import {useRouter} from "next/navigation";
 
 export const MeetingsView = () => {
   const [filters, setFilters] = useMeetingsFilters();
@@ -17,9 +19,17 @@ export const MeetingsView = () => {
   const {data} = useSuspenseQuery(
     trpc.meetings.getMany.queryOptions({...filters})
   );
+  const router = useRouter();
+  const handleRowClick = (meeting: MeetingGetOne) => {
+    router.push(`/meetings/${meeting.id}`);
+  };
   return (
     <div className="flex-1 pb-4 px-4 md:px-8 flex flex-col gap-y-4">
-      <DataTable data={data?.items} columns={columns} />
+      <DataTable
+        onRowClick={handleRowClick}
+        data={data?.items}
+        columns={columns}
+      />
       <DataPagination
         page={filters.page}
         totalPages={data.totalPages}
