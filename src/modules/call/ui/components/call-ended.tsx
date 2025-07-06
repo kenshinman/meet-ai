@@ -11,7 +11,7 @@ export const CallEnded = () => {
             <p className="">Summary will appear in a few minutes</p>
           </div>
 
-          <Button asChild variant="outline">
+          <Button asChild>
             <Link href="/meetings" replace>
               Back to meetings
             </Link>
