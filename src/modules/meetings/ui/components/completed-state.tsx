@@ -15,6 +15,8 @@ import {
 import Link from "next/link";
 import Markdown from "react-markdown";
 import {MeetingGetOne} from "../../types";
+import {Transcript} from "./transcript";
+import {ChatProvider} from "./chat-provider";
 
 interface IProps {
   data: MeetingGetOne;
@@ -152,6 +154,12 @@ export const CompletedState = ({data}: IProps) => {
               />
             )}
           </div>
+        </TabsContent>
+        <TabsContent value="transcript">
+          <Transcript meetingId={data.id} />
+        </TabsContent>
+        <TabsContent value="chat">
+          <ChatProvider meetingId={data.id} meetingName={data.name} />
         </TabsContent>
       </Tabs>
     </div>
