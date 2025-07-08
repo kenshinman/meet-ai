@@ -77,9 +77,6 @@ export const meetingsProcessing = inngest.createFunction(
             name: speaker ? speaker.name : "unknown"
           }
         }
-
-
-
       })
 
     });
