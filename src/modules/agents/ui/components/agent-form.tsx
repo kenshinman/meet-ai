@@ -18,6 +18,7 @@ import {toast} from "sonner";
 import {z} from "zod";
 import {agentsInsertSchema} from "../../schema";
 import {AgentGetOne} from "../../types";
+import {useRouter} from "next/navigation";
 
 interface IAgentForm {
   onSuccess?: () => void;
@@ -28,6 +29,7 @@ interface IAgentForm {
 export const AgentForm = ({onSuccess, onCancel, initialValues}: IAgentForm) => {
   const trpc = useTRPC();
   const queryClient = useQueryClient();
+  const router = useRouter();
 
   const updateAgent = useMutation(
     trpc.agents.update.mutationOptions({
@@ -35,7 +37,6 @@ export const AgentForm = ({onSuccess, onCancel, initialValues}: IAgentForm) => {
         queryClient.invalidateQueries(trpc.agents.getMany.queryOptions({}));
         if (initialValues) {
           queryClient.invalidateQueries(
-            // refetches the agent
             trpc.agents.getOne.queryOptions({id: initialValues.id})
           );
         }
@@ -51,16 +52,21 @@ export const AgentForm = ({onSuccess, onCancel, initialValues}: IAgentForm) => {
   );
   const createAgent = useMutation(
     trpc.agents.create.mutationOptions({
-      onSuccess: () => {
-        // this invalidates cached data so that a fresh list of agents is fetched
-        queryClient.invalidateQueries(trpc.agents.getMany.queryOptions({}));
+      onSuccess: async () => {
+        await queryClient.invalidateQueries(
+          trpc.agents.getMany.queryOptions({})
+        );
+        await queryClient.invalidateQueries(
+          trpc.premium.getFreeUsage.queryOptions()
+        );
         toast.success("Agent created successfully!");
         onSuccess?.();
       },
       onError: (error) => {
         toast.error(error.message);
-
-        // TODO: Check if error code is forbidden so user is redirected to "/upgrade"
+        if (error.data?.code === "FORBIDDEN") {
+          router.push("/upgrade");
+        }
       },
     })
   );

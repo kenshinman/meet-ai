@@ -22,6 +22,7 @@ import {z} from "zod";
 import {meetingsInsertSchema} from "../../schema";
 import {MeetingGetOne} from "../../types";
 import {NewAgentDialog} from "@/modules/agents/ui/components/new-agent-dialog";
+import {useRouter} from "next/navigation";
 
 interface IProps {
   onSuccess?: (id?: string) => void;
@@ -32,6 +33,7 @@ interface IProps {
 export const MeetingForm = ({onSuccess, onCancel, initialValues}: IProps) => {
   const trpc = useTRPC();
   const queryClient = useQueryClient();
+  const router = useRouter();
 
   const updateMeeting = useMutation(
     trpc.meetings.update.mutationOptions({
@@ -39,7 +41,6 @@ export const MeetingForm = ({onSuccess, onCancel, initialValues}: IProps) => {
         queryClient.invalidateQueries(trpc.meetings.getMany.queryOptions({}));
         if (initialValues) {
           queryClient.invalidateQueries(
-            // refetches the agent
             trpc.meetings.getOne.queryOptions({id: initialValues.id})
           );
         }
@@ -48,23 +49,26 @@ export const MeetingForm = ({onSuccess, onCancel, initialValues}: IProps) => {
       },
       onError: (error) => {
         toast.error(error.message);
-
-        // TODO: Check if error code is forbidden so user is redirected to "/upgrade"
       },
     })
   );
   const createMeeting = useMutation(
     trpc.meetings.create.mutationOptions({
-      onSuccess: (data) => {
-        // this invalidates cached data so that a fresh list of agents is fetched
-        queryClient.invalidateQueries(trpc.meetings.getMany.queryOptions({}));
+      onSuccess: async (data) => {
+        await queryClient.invalidateQueries(
+          trpc.meetings.getMany.queryOptions({})
+        );
+        await queryClient.invalidateQueries(
+          trpc.premium.getFreeUsage.queryOptions()
+        );
         toast.success("Meeting created successfully!");
         onSuccess?.(data.id);
       },
       onError: (error) => {
         toast.error(error.message);
-
-        // TODO: Check if error code is forbidden so user is redirected to "/upgrade"
+        if (error.data?.code === "FORBIDDEN") {
+          router.push("/upgrade");
+        }
       },
     })
   );
