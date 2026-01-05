@@ -46,6 +46,9 @@ export const MeetingIdView = ({meetingId}: IProps) => {
         await queryClient.invalidateQueries(
           trpc.meetings.getMany.queryOptions({})
         );
+        await queryClient.invalidateQueries(
+          trpc.premium.getFreeUsage.queryOptions()
+        );
         toast.success("Meeting deleted successfully!");
         router.replace("/meetings");
       },
